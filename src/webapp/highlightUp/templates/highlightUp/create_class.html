@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block title %} Create Class {% endblock title%}
+
+
+
+
+
+{% block main %}
+{% if form.errors %}
+{% for field,error in form.errors.items %}
+<h3 class="error-message text-center">{{error|striptags}}</h3>
+{% endfor %}
+{% endif %}
+<form class="mx-5" method="POST" action="{% url 'create_class' %}"> {% csrf_token %}
+    <label for="class_name"> Class Name</label>
+    <input type="text" id="class_name" name="class_name" class="form-control mb-5" placeholder="e.g. Web Application Development "
+        required>
+
+    <label for="class_number"> Class Number</label>
+    <input type="text" id="class_number" name="class_number" class="form-control mb-5" placeholder="e.g. 17-437"
+        required>
+
+    <label for="class_size"> Estimated Class Enrollment</label>
+    <input type="text" id="class_size" name="class_size" class="form-control mb-5" placeholder="e,g. 10, 50, 200"
+        required>
+
+
+    <button class="btn btn-lg white mb-4 lightblue-background" type="submit">Create a new Class</button>
+</form>
+{% endblock main %}

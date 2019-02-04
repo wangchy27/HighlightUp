@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+
+{% block title %} {{ title }}{% endblock title %}
+
+{%block css%}
+  {% load static %}
+  <link href="{% static 'css/view_pdf.css' %}" rel="stylesheet">
+  <link href="{% static 'css/text_layer_builder.css' %}" rel="stylesheet">
+{%endblock css%}
+
+{%block body%}
+<main>
+  <div class="row">
+    <div class="col-md-8 padding-0">
+      <div class="header font-weight-bold"> 
+        {{ file.file_name }}
+        <div class="btn-group annotation-mode-bar" role="group" aria-label="Mode button">
+          <button class="btn btn-secondary mode-btn" id="setCommentMode"> Add comment </button>
+          <button class="btn btn-secondary mode-btn" id="setHighlightMode"> Add Highlight </button>
+        </div>
+      </div>
+        <div class="pdf-viewer">
+          <div class="pdf-container" id="pdf-container"></div>
+        </div>
+    </div>
+    <div class="col-md-4 padding-0">
+      <div class="header annotation-type-bar"> 
+        <div class="btn-group" role="group" aria-label="Mode button">
+          <button class="btn btn-secondary mode-btn" id="setNoteMode"> Notes </button>
+          <button class="btn btn-secondary mode-btn" id="setQuestionMode"> Questions </button>
+        </div>
+      </div>
+      <a class="filter-bar filter-header font-weight-bold" data-toggle="collapse" href="#filter-bar" aria-expanded="false" aria-controls="comments">Click To Filter Notes</a>
+      <div class="collapse filter-bar" id="filter-bar">
+        <div>
+          <p class="filter-header d-inline-block font-weight-bold">Filter Publicity:</p>
+          <select class="form-control d-inline-block filter-select" id="publicity-filter">
+            <option>All</option>
+            <option>Private</option>
+            <option>Public</option>
+          </select>
+        </div>
+        <p class="filter-header d-inline-block font-weight-bold">Filter Public Note/Question By:</p>
+        <div class="d-inline-block">
+          <p class="d-inline-block">User type:</p>
+          <select class="form-control d-inline-block filter-select" id="user-filter">
+            <option>All</option>
+            <option>Instructor</option>
+            <option>Student</option>
+            <option>Self</option>
+          </select>
+        </div>
+        <div class="d-inline-block">
+          <p class="d-inline-block">Voted:</p>
+          <select class="form-control d-inline-block filter-select" id="vote-filter">
+            <option>All</option>
+            <option>Voted</option>
+          </select>
+        </div>
+        <div class="d-inline-block">
+          <p class="d-inline-block">Vote Number &ge;</p>
+          <input type="text" class="vote-number-filter" id="vote-number-input" name="vote-number-filter" value="0"></input>
+          <button class="btn btn-primary btn-sm" id="vote-number-button">Confirm</button>
+        </div>
+      </div>
+      <div class="notation-bar-wrapper">
+        <div class="notation-bar" id="notation-bar"></div>
+      </div>
+    </div>
+  </div>
+  <input id="pdf-URL" name="pdf-URL" value="{% url 'serve_pdf' file.id %}" type=hidden>
+  <input id="pdf-id" name="pdf-id" value={{file.id}} type=hidden>
+</main>
+{%endblock body%}
+
+{%block JavaScript%}
+  {% load static %}
+  <script src="{% static 'js/jcanvas.min.js' %}"></script>
+  <script src="{% static 'js/pdf.js' %}"></script>
+  <script src="{% static 'js/pdf.worker.js' %}"></script>
+  <script src="{% static 'js/text_layer_builder.js' %}"></script>
+  <script src="{% static 'js/pdfViewer.js' %}"></script>
+{%endblock JavaScript%}

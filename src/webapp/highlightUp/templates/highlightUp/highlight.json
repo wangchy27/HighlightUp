@@ -1,0 +1,7 @@
+{
+    "width" : "{{highlight.width}}",
+    "height" : "{{highlight.height}}",
+    "page" : "{{highlight.page}}",
+    "x": "{{ highlight.x }}",
+    "y": "{{ highlight.y }}"
+}

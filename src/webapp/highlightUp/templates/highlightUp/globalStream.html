@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %} Main Page {% endblock title%}
+
+{% block main%}
+
+{% if students.count == 0 and instructors.count == 0 %}
+
+<h1 class="mb-4 lightblue">Welcome to HighlightUp!</h1>
+
+<h4 class="mb-4">
+    <b>HighlightUp</b> is a free platform for instructors to efficiently manage class PDF files.
+    Students can add notes and questions related to a file and collaborate to edit responses to these annotations.
+    Instructors can also answer questions, endorse student notes, and edit or delete any annotation content.
+</h4>
+
+<h4 class="mb-4">
+    You see this page because you currently haven't enrolled in any class.
+
+    If you're an instructor and want to create your own class, please click the button below to create and join a new
+    class.
+</h4>
+<a class="btn white mb-4 font-weight-bold lightblue-background" role="button" href="{% url 'create_class' %}">Create
+    a Class</a>
+<h4 class="mb-4">
+    If you're a student, please click the button below join a class.
+</h4>
+{%endif%}
+
+{% if students.count != 0 %}
+<h1 class="mb-4 lightblue">Welcome to HighlightUp!</h1>
+<h4 class="mb-4">
+    Please click the course links below to redirect to the related course pages.
+</h4>
+{% for class in students %}
+<div class="my-5">
+    <a href="{% url 'class_page' class.id %}">{{class.class_number}} | {{class.class_name}}</a>
+</div>
+{% endfor %}
+{% endif %}
+<div class="join-class-modal">
+    <a class="btn white mb-4 font-weight-bold lightblue-background" role="button" href="#"
+        data-toggle="modal" data-target="#joinClassModal" onkeyup="filterFunction()">
+        Join a Class
+    </a>
+
+    <!-- Modal -->
+    <div class="modal fade" id="joinClassModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="mb-4" class="modal-title" id="exampleModalCenterTitle">Join a Class</h4 class="mb-4">
+                </div>
+                {% if classes.count != 0 %}
+                <div class="modal-body">
+                    <input type="search" class="form-control my-3 dropdown-toggle lightblue-background" id="course_search_bar"
+                        placeholder="Search Courses" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                        aria-label="Search" onkeyup="filterFunction()" />
+
+                    <div class="dropdown-menu search-class" id="myDropdown">
+                        {% for class in classes %}
+                        <a class="dropdown-item darkblue" id="" href="{%url 'select_and_join_class' class.id%}">
+                            {{class.class_number}} | {{class.class_name}}
+                        </a>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endif %}
+                <div class="register text-center py-3">
+                    <h5>
+                        Are you a professor?
+                    </h5>
+                    <a href="{% url 'create_class' %}">
+                        Click here to create and join class
+                    </a>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<input type="hidden" id="timestamp" value="{{timestamp}}">
+{% endblock main %}
+
+{%block JavaScript%}
+<script src="{% static 'js/filter.js' %}"></script>
+{%endblock JavaScript%}

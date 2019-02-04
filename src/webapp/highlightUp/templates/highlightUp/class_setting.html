@@ -1,0 +1,124 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %} Class Setting {% endblock title%}
+
+{% block main%}
+
+{% if setting_form.errors %}
+{% for field,error in setting_form.errors.items %}
+<h3 class="error-message text-center">{{error|striptags}}</h3>
+{% endfor %}
+{% endif %}
+{% if upload_form.errors %}
+{% for field,error in upload_form.errors.items %}
+<h3 class="error-message text-center">{{error|striptags}}</h3>
+{% endfor %}
+{% endif %}
+
+<h2 class="font-weight-bold mb-3 lightblue">{{class.class_number}} | {{class.class_name}}</h2>
+
+
+<form id="class_setting_form" enctype="multipart/form-data" class="form-group my-5" method="POST" action="{% url 'class_setting' class_id %}">
+    {% csrf_token %}
+    <h3 class="font-weight-bold mb-3 darkblue">Class Setting</h3>
+    <input type="hidden" id="change_setting" name="change_setting" />
+    <input type="hidden" id="class_size" name="class_size" value="{{class.class_size}}" />
+    <input type="hidden" id="students" name="students" value="{{class.students}}" />
+    <input type="hidden" id="instructors" name="instructors" value="{{class.instructors}}" />
+
+    <label for="class_number">Course Number</label>
+    <input type="text" id="class_number" name="class_number" class="form-control mb-2" placeholder="Course Number: {{class.class_number}}"
+        value="{{class.class_number}}">
+
+    <label for="class_name">Course Name</label>
+    <input type="text" id="class_name" name="class_name" class="form-control mb-2" placeholder="Course Name: {{class.class_name}}"
+        value="{{class.class_name}}">
+
+    <button class="btn btn-lg mb-4 lightblue-background white" type="submit">Save</button>
+</form>
+
+<form id="upload_file_form" enctype="multipart/form-data" class="form-group my-5" method="POST" action="{% url 'class_setting' class_id %}">
+    {% csrf_token %}
+    <h3 class="font-weight-bold mb-3 darkblue">Upload New File</h3>
+
+    <div class="form-group">
+        <label for="file_section">File Section</label>
+        <select class="form-control mb-2" id="file_section" name="file_section">
+            <option>Homework</option>
+            <option>Homework Solution</option>
+            <option>Lecture Note</option>
+            <option>Other Resources</option>
+        </select>
+    </div>
+
+    <label for="file_pdf" class="sr-only">File</label>
+    <input type="file" id="file_pdf" name="file_pdf" class="form-control-file py-3" placeholder="File">
+
+    <button class="btn btn-lg white mb-4 lightblue-background" type="submit">Save</button>
+</form>
+
+{% if files.count != 0%}
+<div class="my-5">
+    <h3 class="font-weight-bold mb-3 darkblue">Manage Files</h3>
+    <ul class="files">
+        {% for file in files%}
+        <li class="mb-3">
+            <a class="mb-1 mr-5 darkblue" href="{% url 'view_pdf' file.id %}">
+                {{file.file_name}}
+            </a>
+
+            <button class="btn btn-sm white mb-4 lightblue-background" type="button" data-toggle="modal" data-target="#delete_file_alert_{{file.id}}">Delete</button>
+            <!-- Modal -->
+            <div class="modal fade" id="delete_file_alert_{{file.id}}" tabindex="-1" role="dialog" aria-labelledby="delete_file_alert_title"
+                aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="delete_file_alert_title">Confirm Changes</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <p>Are you sure to delete the file "{{file.file_name}}"?</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                            <a role="button" class="btn white lightblue-background" href="{% url 'delete_file' class.id file.id %}">Delete</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+{% endif %}
+<div class="my-5">
+    <h3 class="font-weight-bold mb-3 darkblue">Instructors</h3>
+    <ul class="instructors">
+        {% for instructor in class_instructor%}
+        <li class="mb-3">
+            {{instructor}}
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+<div class="my-5">
+    <h3 class="font-weight-bold mb-3 darkblue">Nominate Instructor</h3>
+    <form id="nominate_instructor_form" enctype="multipart/form-data" class="form-group mb-5" method="POST" action="{% url 'class_setting' class_id %}">
+        {% csrf_token %}
+        <input type="hidden" id="nominate_instructor" name="nominate_instructor" />
+        <input type="hidden" id="class_size" name="class_size" value="{{class.class_size}}" />
+        <input type="hidden" id="students" name="students" value="{{class.students}}" />
+        <input type="hidden" id="instructors" name="instructors" value="{{class.instructors}}" />
+
+        <label for="instructor_name">Input the username of the instructor that you would like to nominate:</label>
+        <input type="text" id="instructor_name" name="instructor_name" class="form-control mb-2" placeholder="Add instructors by username">
+
+        <button class="btn btn-lg white mb-4 lightblue-background" type="submit">Save</button>
+    </form>
+</div>
+
+{% endblock main%}

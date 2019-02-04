@@ -1,0 +1,7 @@
+{
+    "annotations":[
+      {% for annotation in annotations %}{% include 'highlightUp/annotation.json' %}{% if not forloop.last %}, {% endif %}{% endfor %}
+    ],
+    "timestamp": {{timestamp}}
+}
+  

@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %} Class Page {% endblock title%}
+
+{% block main%}
+<h2 class="font-weight-bold mb-3 lightblue">{{class.class_number}} | {{class.class_name}}</h2>
+
+{% if homework.count == 0 and homework_sol.count == 0 and lecture.count == 0 and other.count == 0 %}
+
+<h4 class="mb-4">
+    <b>Welcome to {{class.class_number}} | {{class.class_name}}!</b>
+</h4>
+<h4 class="mb-4">
+    <b>HighlightUp</b> is a free platform for instructors to efficiently manage class PDF files.
+    Students can add notes and questions related to a file and collaborate to edit responses to these annotations.
+    Instructors can also answer questions, endorse student notes, and edit or delete any annotation content.
+</h4>
+
+<h4 class="mb-4">
+    You see this page because this class don't have any files uploaded. Please wait for the instructors to upload new
+    files.
+</h4>
+
+<h4 class="mb-4">
+    If you're instructors, please click the "Manage Class" button in the navigation bar to upload new files to this class.
+</h4>
+
+{% endif %}
+
+{% if homework.count != 0%}
+<table id="table_homework" class="table table-striped mb-5">
+    <h3 class="my-3">Homework</h3>
+    <tbody>
+        {% for file in homework %}
+        <tr>
+            <td><a href="{% url 'view_pdf' file.id %}">{{file.file_name}}</a></td>
+        </tr>
+        {% endfor %}
+    </tbody>
+
+</table>
+{% endif %}
+
+{% if homework_sol.count != 0%}
+<table id="table_homework" class="table table-striped mb-5">
+    <h3 class="my-3">Homework Solution</h3>
+    <tbody>
+        {% for file in homework_sol %}
+        <tr>
+            <td><a href="{% url 'view_pdf' file.id %}">{{file.file_name}}</a></td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endif %}
+
+{% if lecture.count != 0%}
+<table id="table_homework" class="table table-striped mb-5">
+    <h3 class="my-3">Lecture Note</h3>
+    <tbody>
+        {% for file in lecture %}
+        <tr>
+            <td><a href="{% url 'view_pdf' file.id %}">{{file.file_name}}</a></td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endif %}
+
+{% if other.count != 0%}
+<table id="table_homework" class="table table-striped mb-5">
+    <h3 class="my-3">Other Resources</h3>
+    <tbody>
+        {% for file in other %}
+        <tr>
+            <td><a href="{% url 'view_pdf' file.id %}">{{file.file_name}}</a></td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endif %}
+
+<input type="hidden" id="timestamp" value="{{timestamp}}">
+{% endblock main %}

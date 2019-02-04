@@ -1,0 +1,10 @@
+{
+    "id" : "{{comment.id |safe}}",
+    "commentText" : "{{comment.commentText|safe}}",
+    "user" : "{% url 'profile' %}",
+    "username" : "{{comment.user.first_name|safe}} {{comment.user.last_name|safe}}",
+    "picture" : "{% url 'photo' comment.user.user.get_username %}",
+    "dateTime" : "{{comment.dateTime}}",
+    "annotation_id" : "{{comment.annotation.id |safe}}",
+    "role" : "{{comment.role |safe}}"
+ }

@@ -1,0 +1,23 @@
+{
+    "id" : "{{annotation.id}}",
+    "text" : "{{annotation.text|safe}}",
+    "username" : "{{annotation.user.first_name|safe}} {{annotation.user.last_name|safe}}",
+    "picture" : "{% url 'photo' annotation.user.user.get_username %}",
+    "canDelete": {% if annotation.user.user == user %} "True" {% else %} "False" {% endif %},
+    "time" : "{{ annotation.time }}",
+    "page": "{{ annotation.page }}",
+    "type": "{{ annotation.anno_type }}",
+    "publicity": "{{ annotation.publicity }}",
+    "x": "{{ annotation.x }}",
+    "y": "{{ annotation.y }}",
+    "addcomment" : "{% url 'add_comment' annotation.id %}",
+    "role" : "{{annotation.role}}",
+    "vote" : {% if user.profile in annotation.voter.all %} "True" {% else %} "False" {% endif %},
+    "voteNum" : "{{annotation.voter.all.count}}",
+    "comments" : [
+        {% for comment in annotation.comment_set.all %}{% include 'highlightUp/comment.json' %}{% if not forloop.last %}, {% endif %}{% endfor %}
+      ],
+    "highlights" : [
+        {% for highlight in annotation.highlight_set.all %}{% include 'highlightUp/highlight.json' %}{% if not forloop.last %}, {% endif %}{% endfor %}
+      ]
+}

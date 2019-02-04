@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block title %} Login {% endblock title%}
+{% block error %}
+    {% for error in form.errors %}
+    <h3 class = "text-center error-message">
+    Incorrect username or password!
+    </h3>
+    {% endfor %}
+{% endblock error %}
+{%block navbar%}{%endblock navbar%}
+
+{% block main %}
+<h1 class="display-3 mb-5 font-weight-bold text-center lightblue">HighlightUp!</h1>
+<form class="form-signin text-center" method = "POST" action = "{% url 'login' %}" > {% csrf_token %}
+    <label for="username" class="sr-only">Username</label>
+    <input type="text" class="form-control" id="username" name="username" placeholder="Username" required autofocus>
+    <label for="password" class="sr-only">Password</label>
+    <input type="password" class="form-control mb-4" id="password" name = "password" placeholder="Password" required>
+    <button class="btn btn-lg btn-block mb-4 lightblue-background white" type="submit">Login</button>
+    <div class=" foget-password">
+        <a href="{% url 'forget_password' %}">
+            Forget Password?
+        </a>
+    </div>
+    <div class="register">
+        <span>
+            No Account?
+        </span>
+        <a href="{% url 'register' %}">
+            Register
+        </a>
+    </div>
+    <input type="hidden" name="next" value="{{ next }}" />
+</form>
+{% endblock main %}

@@ -1,0 +1,78 @@
+html,
+body {
+  height: 100%;
+  display: -ms-flexbox;
+  /* -ms-flex-align: center; */
+  /* align-items: center; */
+  padding-top: 40px;
+  padding-bottom: 40px;
+  background-color: #ffffff;
+}
+
+.form-signin {
+  width: 100%;
+  max-width: 330px;
+  padding: 15px;
+  margin: auto;
+}
+.form-signin .checkbox {
+  font-weight: 400;
+}
+.form-signin .form-control {
+  position: relative;
+  box-sizing: border-box;
+  height: auto;
+  padding: 10px;
+  font-size: 16px;
+}
+.form-signin .form-control:focus {
+  z-index: 2;
+}
+.form-signin input {
+  margin-bottom: -1px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+.form-signin input[id="confirmPassword"] {
+  margin-bottom: 10px;
+}
+
+.navbar {
+  margin-bottom: 20px;
+}
+
+.error-message {
+  color: #ff606e;
+}
+
+.lightblue {
+  color: #00ddd8;
+}
+
+.darkblue {
+  color: #517398;
+}
+
+.lightblue-background {
+  background-color: #00ddd8;
+}
+
+.darkblue-background {
+  background-color: #517398;
+}
+
+.white {
+  color: #ffffff;
+}
+
+.navbar-brand:hover {
+  color: #00ddd8;
+}
+
+.white:hover {
+  color: #ffffff;
+}
+
+.search-class {
+  width: 94%;
+}

@@ -1,0 +1,188 @@
+.pdf-viewer {
+	position: relative;
+	width: 100%;
+	height: calc(100vh - 120px);
+	overflow-y: scroll;
+}
+
+.pdf-container {
+	position: relative;
+}
+
+.annotation-layer {
+	position: absolute;
+	z-index: 2;
+	top: 0;
+	left: 0;
+}
+
+.textLayer {
+	position: absolute;
+	z-index: 3;
+}
+
+.pdf-layer {
+	position: absolute;
+	z-index: 0;
+	top: 0;
+	left: 0;
+}
+
+.notation-bar-wrapper {
+	position: relative;
+	width: 100%;
+	height: calc(100vh - 138px);
+	overflow-y: scroll;
+	border-left: 1px solid #e2e2e2;
+	padding-right: 10px;
+	padding-left: 10px;
+}
+
+.notation-bar {
+	width: 100%;
+	position: absolute;
+	background-color: #f2f2f2;
+	top: 0px;
+	left: 0px;
+}
+
+form {
+	padding: 10px 10px;
+}
+
+p {
+	margin-bottom: 8px;
+}
+
+.hidden {
+	display: none;
+}
+
+.header {
+	z-index: 10;
+	background-color: #517398;
+	padding-left: 30px;
+	color: #ffffff;
+}
+
+.padding-0 {
+	padding-right: 0;
+	padding-left: 0;
+	height: calc(100vh - 82px);
+}
+
+.mode-btn {
+	background-color: #517398;
+}
+
+.annotation-mode-bar {
+	margin-left: 10px;
+}
+
+.annotation-type-bar {
+	padding-left: 0px;
+}
+
+.post-button {
+	background-color: #517398;
+	margin-top: 10pxs;
+	color: #ffffff;
+}
+
+.note {
+	margin: 5px 10px;
+}
+
+.active-note {
+	background-color: #E0FFFF;
+}
+
+.card-body {
+	padding: 10px;
+}
+
+.profile-link {
+	color: #517398;
+}
+
+.activeButton {
+	background-color: #42494f;
+}
+
+.btn {
+	outline: none;
+}
+
+.expand-comment {
+	color: #ffffff;
+	position: relative;
+}
+
+.expand-comment .line {
+	height: 1px;
+	margin-top: 20px;
+	margin-bottom: 20px;
+	text-align: center;
+	border-top: 1px solid #00ddd8;
+}
+
+.expand-comment .txt {
+	position: relative;
+	top: -15px;
+	background-color: #00ddd8;
+	display: inline-block;
+}
+
+.badge {
+	font-size: 20px;
+	background-color: #00ddd8;
+	color: #FF606E;
+}
+
+.btn-vote {
+	font-size: 15px;
+	color: #ffa10b;
+	background-color: #ffffff;
+}
+
+.timetag {
+	display: inline;
+	padding-right: 10px;
+}
+
+.filter-header {
+	color: #FF606E;
+	padding: 0;
+}
+
+.filter-bar {
+	padding-left: 10px;
+	padding-right: 10px;
+}
+
+.filter-select {
+	width: auto;
+	margin: 0px 5px;
+}
+
+.vote-number-filter {
+	max-width: 50px;
+}
+
+.form-group-label {
+	margin-bottom: 0;
+	margin-right: 8px;
+}
+
+#vote-number-button {
+	background-color: #517398;
+}
+
+#delete-note {
+	color:#26a69a;
+}
+
+#edit-note {
+	color:#26a69a;
+	padding-right: 10px;
+}

@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %} Profile {% endblock title%}
+
+{% block user_info %}
+<div class="py-5">
+    <div class="col">
+        <img class="d-block mx-auto mb-3 rounded-circle" src="{% url 'photo' user.username %}" alt="{{user.username}}"
+            width="80" height="80">
+    </div>
+
+    <h2>{{profile.first_name}} {{profile.last_name}}</h2>
+</div>
+
+{% endblock user_info %}
+
+{% block main%}
+{% if form.errors %}
+{% for field,error in form.errors.items %}
+<h3 class="error-message text-center">{{error|striptags}}</h3>
+{% endfor %}
+{% endif %}
+<form id="profile_setting_form" enctype="multipart/form-data" class="form-group mx-5 pb-5" method="POST" action="{% url 'profile' %}">
+    {% csrf_token %}
+    <h3 class="font-weight-bold mb-3 darkblue">Profile Setting</h3>
+    <label for="inputFirstName">First Name</label>
+    <input type="text" id="inputFirstName" name="first_name" class="form-control mb-2" placeholder="First Name: {{profile.first_name}}"
+        value="{{profile.first_name}}">
+
+    <label for="inputLastName">Last Name</label>
+    <input type="text" id="inputLastName" name="last_name" class="form-control mb-2" placeholder="Last Name: {{profile.last_name}}"
+        value="{{profile.last_name}}">
+
+    <label for="inputBio">Bio</label>
+    <textarea id="inputBio" name="bio" rows="6" class="form-control mb-2" placeholder="Bio: {{profile.bio}}">{{profile.bio}}</textarea>
+
+    <label for="inputPicture">Picture</label>
+    <input type="file" id="inputPicture" name="picture" class="form-control-file py-3" placeholder="Proflie Image">
+
+    <button class="btn btn-lg white mb-4 lightblue-background" type="submit">Save</button>
+
+    <div class="change_password">
+        <a href="{% url 'new_password' %}">
+            Change Password
+        </a>
+    </div>
+
+</form>
+
+{% if students.count != 0 %}
+<h3 class="font-weight-bold mx-5 mb-3 darkblue">Manage Class</h3>
+<ul class="files">
+    {% for class in students%}
+    <li class="mx-5 mb-3">
+        <a class="mb-1 mr-5 darkblue" href="{% url 'class_page' class.id %}">
+            {{class.class_number}} | {{class.class_name}}
+        </a>
+        <button class="btn btn-sm white mb-4 lightblue-background" type="button" data-toggle="modal" data-target="#delete_file_alert_{{class.id}}">Drop Class</button>
+
+        <!-- Modal -->
+        <div class="modal fade" id="delete_file_alert_{{class.id}}" tabindex="-1" role="dialog" aria-labelledby="delete_file_alert_title"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="delete_file_alert_title">Confirm Changes</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Are you sure to drop class "{{class.class_number}} | {{class.class_name}}"?</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                        <a role="button" class="btn white lightblue-background" href="{% url 'drop_class' class.id %}">Drop Class</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </li>
+    {% endfor %}
+</ul>
+{% endif %}
+{% endblock main%}

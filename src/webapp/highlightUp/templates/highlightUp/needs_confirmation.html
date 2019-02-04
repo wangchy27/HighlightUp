@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block title %} Confirmation Required {% endblock title%}
+
+{%block navbar%}{%endblock navbar%}
+
+{%block main%}
+<h1 class="lightblue mb-3">Please confirm your email to finish registration</h1>
+<h4 class="mb-3">Dear user,</h4>
+<h4 class="mb-3">A confirmation email has been sent to your email address {{email}}.</h4>
+<h4 class="error-message mb-3">You have to use the link in the email to activate your account and finish the
+    registration process. Otherwise, you could not login.</h4>
+<h4 class="error-message mb-3"> The link would expire after one click.</h4>
+<h4 class="mb-3">Please take a look and complete your registration.</h4>
+<h4 class="mb-3">Thank you for choosing highlightUp!</h4>
+<h4>Best,</h4>
+<h4>HighlightUp Team</h4>
+{%endblock main%}
